@@ -22,7 +22,7 @@ export const StackScreenWrapperWithCustomBar = observer(({ children }: PropsType
 
 export const StackScreenWrapper = observer(({ children }: PropsTypes) => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
                 <GoBackButton />
                 {children}

@@ -54,6 +54,7 @@
     <key>UIAppFonts</key>
     <array>
         <string>AntDesign.ttf</string>
+        <string>FontAwesome.ttf</string>
     </array>
 </dict>
 </plist>
