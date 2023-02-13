@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useAppState } from '@src/state/appState';
 import { observer } from 'mobx-react-lite';
+import { Button } from '@rneui/themed';
 
 export const Home = observer(() => {
     const { routerState } = useAppState();
