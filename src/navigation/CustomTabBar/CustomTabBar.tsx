@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppState } from '@src/state/appState';
-// import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export const BOTTOM_NAV_HEIGHT = 50;
 
@@ -35,27 +35,24 @@ export const CustomTabBar = observer(() => {
             <View style={styles.customTabBarWrapper}>
                 <CustomTabBarButton
                     icon={
-                        <Text>HomeTab</Text>
-                        // <Icon name="appstore-o" size={20} color={currentTabName === 'HomeTab' ? '#bb8800' : '#000'} />
+                        <Icon name="appstore-o" size={20} color={currentTabName === 'HomeTab' ? '#bb8800' : '#000'} />
                     }
                     isActive={currentTabName === 'HomeTab'}
                     onRedirect={navigateToHome}
                 />
                 <CustomTabBarButton
                     icon={
-                        <Text>AddEventTab</Text>
-                        // <Icon
-                        //     name="pluscircle"
-                        //     size={40}
-                        //     color={currentTabName === 'AddEventTab' ? '#bb8800' : '#000'}
-                        // />
+                        <Icon
+                            name="pluscircle"
+                            size={40}
+                            color={currentTabName === 'AddEventTab' ? '#bb8800' : '#000'}
+                        />
                     }
                     isActive={currentTabName === 'AddEventTab'}
                     onRedirect={navigateToAddEvent}
                 />
                 <CustomTabBarButton
-                    // icon={<Icon name="user" size={20} color={currentTabName === 'ProfileTab' ? '#bb8800' : '#000'} />}
-                    icon={<Text>ProfileTab</Text>}
+                    icon={<Icon name="user" size={20} color={currentTabName === 'ProfileTab' ? '#bb8800' : '#000'} />}
                     isActive={currentTabName === 'ProfileTab'}
                     onRedirect={navigateToProfile}
                 />
