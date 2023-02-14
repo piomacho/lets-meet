@@ -14,34 +14,12 @@ export const AddEvent = observer(() => {
     const { routerState } = useAppState();
 
     const [addEventState] = React.useState(() => new AddEventState());
-    const {
-        error,
-        successMessage,
-        date,
-        isLoading,
-        eventName,
-        details,
-        numberOfPeople,
-        gender,
-        category,
-        eventNameStatus,
-        detailsStatus,
-        numberOfPeopleStatus,
-        categoryStatus,
-        isFormValid,
-        setEventName,
-        setCategory,
-        setNumberOfPeople,
-        setDetails,
-        setGender,
-        onDateChange,
-        createEvent,
-        validate,
-    } = addEventState;
+    const { details, isFormValid, setEventName, setCategory, setNumberOfPeople, setDetails, setGender, createEvent } =
+        addEventState;
 
-    const isIos = Platform.OS === 'ios';
     return (
         <View>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Utwórz wydarzenie</Text>
             <Formik
                 initialValues={{
                     eventName: '',
@@ -79,7 +57,11 @@ export const AddEvent = observer(() => {
                                     value={details}
                                     style={{ padding: 10 }}
                                 />
-                                <Input label="Liczba uczestników" keyboardType="numeric" onChangeText={setEventName} />
+                                <Input
+                                    label="Liczba uczestników"
+                                    keyboardType="numeric"
+                                    onChangeText={setNumberOfPeople}
+                                />
                                 <View style={{ margin: 10 }}>
                                     <Text>Wybierz kategorię</Text>
                                     <RNPickerSelect
@@ -106,6 +88,7 @@ export const AddEvent = observer(() => {
                                             },
                                         ]}
                                         style={{ ...pickerSelectStyles }}
+                                        //@ts-expect-error
                                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                                     />
 
@@ -130,6 +113,7 @@ export const AddEvent = observer(() => {
                                             },
                                         ]}
                                         style={{ ...pickerSelectStyles }}
+                                        //@ts-expect-error
                                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                                     />
                                 </View>

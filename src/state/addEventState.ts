@@ -49,8 +49,8 @@ export class AddEventState {
         this.details = details;
     };
 
-    public setNumberOfPeople = (numberOfPeople: number) => {
-        this.numberOfPeople = numberOfPeople;
+    public setNumberOfPeople = (numberOfPeople: string) => {
+        this.numberOfPeople = Number(numberOfPeople);
     };
     public setCategory = (category: string) => {
         this.category = category;
