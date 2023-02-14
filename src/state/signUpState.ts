@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { makeAutoObservable } from 'mobx';
 
-export class SignUptState {
+export class SignUpState {
     date: Date | null = null;
     error: string | null = null;
     successMessage: string | null = null;
@@ -9,7 +9,7 @@ export class SignUptState {
 
     public firstName: string = '';
     public lastName: string = '';
-    public postCode: string = '';
+    public age: string = '';
     public email: string = '';
     public password: string = '';
     public confirmPassword: string = '';
@@ -53,8 +53,8 @@ export class SignUptState {
         this.lastName = lastName;
     };
 
-    public setPostCode = (postcode: string) => {
-        this.postCode = postcode;
+    public setAge = (age: string) => {
+        this.age = age;
     };
 
     public setEmail = (email: string) => {
