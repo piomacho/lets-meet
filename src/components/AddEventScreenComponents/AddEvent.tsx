@@ -40,14 +40,7 @@ export const AddEvent = observer(() => {
                         <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss} accessible={false}>
                             <View>
                                 <Input label="Nazwa wydarzenia" onChangeText={setEventName} />
-                                {/* <Input
-                                    placeholder="Details"
-                                    label="Details"
-                                    onChangeText={setDetails}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                    style={{ padding: 10 }}
-                                /> */}
+                             
                                 <Input
                                     editable
                                     multiline

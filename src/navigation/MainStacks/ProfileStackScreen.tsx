@@ -9,6 +9,7 @@ import { Contacts } from '@src/components/ProfileScreenComponents/Contacts';
 import { Settings } from '@src/components/ProfileScreenComponents/Settings';
 import { Help } from '@src/components/ProfileScreenComponents/Help';
 import { About } from '@src/components/ProfileScreenComponents/About';
+import { Login } from '@src/components/ProfileScreenComponents/Login';
 
 export const ProfileScreen = observer(() => {
     return (
@@ -22,6 +23,14 @@ export const ContactsScreen = observer(() => {
     return (
         <StackScreenWrapper>
             <Contacts />
+        </StackScreenWrapper>
+    );
+});
+
+export const LoginScreen = observer(() => {
+    return (
+        <StackScreenWrapper>
+            <Login />
         </StackScreenWrapper>
     );
 });

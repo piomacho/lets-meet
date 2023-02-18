@@ -12,6 +12,7 @@ export const Profile = observer(() => {
             <SignUp />
             <View style={{ alignItems: 'center' }}>
                 <Button title="Go to Contacts" onPress={routerState.navigateToContacts} />
+                <Button title="Go to Login" onPress={routerState.navigateToLogin} />
                 <Button title="Go to Settings" onPress={routerState.navigateToSettings} />
                 <Button title="Go to Help" onPress={routerState.navigateToHelp} />
                 <Button title="Go to About" onPress={routerState.navigateToAbout} />
