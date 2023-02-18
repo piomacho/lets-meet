@@ -21,6 +21,7 @@ const addEventStackRoutes = ['AddEvent', 'InviteGuests', 'Review'];
 export type ProfileStackScreenType = {
     Profile: undefined;
     Contacts: undefined;
+    Login: undefined;
     Settings: undefined;
     Help: undefined;
     About: undefined;
@@ -139,6 +140,12 @@ export class RouterState {
     navigateToContacts = () => {
         this.navigationRef.navigate('ProfileTab', {
             screen: 'Contacts',
+        });
+    };
+    
+    navigateToLogin = () => {
+        this.navigationRef.navigate('ProfileTab', {
+            screen: 'Login',
         });
     };
 

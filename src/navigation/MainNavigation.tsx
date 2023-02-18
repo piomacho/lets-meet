@@ -2,6 +2,8 @@ import * as React from 'react';
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+
 import {
     AddEventStackScreenType,
     HomeStackScreenType,
@@ -16,6 +18,7 @@ import {
     AboutScreen,
     ContactsScreen,
     HelpScreen,
+    LoginScreen,
     ProfileScreen,
     SettingsScreen,
 } from '@src/navigation/MainStacks/ProfileStackScreen';
@@ -50,6 +53,7 @@ const ProfileStackScreen = observer(() => {
         <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
             <ProfileStack.Screen name="Profile" component={ProfileScreen} />
             <ProfileStack.Screen name="Contacts" component={ContactsScreen} />
+            <ProfileStack.Screen name="Login" component={LoginScreen} />
             <ProfileStack.Screen name="Settings" component={SettingsScreen} />
             <ProfileStack.Screen name="Help" component={HelpScreen} />
             <ProfileStack.Screen name="About" component={AboutScreen} />
@@ -62,6 +66,17 @@ const Tab = createBottomTabNavigator<NavigatorType>();
 export const MainNavigation = observer(
     ({ navigationRef }: { navigationRef: NavigationContainerRefWithCurrent<NavigatorType> }) => {
         const root = new AppState(navigationRef);
+
+        React.useEffect(() => {
+            function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
+                if (user) {
+                    root.accountState.setFirebaseUser(user);
+                }
+            }
+
+            const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+            return subscriber; // unsubscribe on unmount
+        }, [root.accountState]);
 
         return (
             <AppStateContext.Provider value={root}>
