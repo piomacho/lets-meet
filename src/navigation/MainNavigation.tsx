@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,7 +22,9 @@ import {
     LoginScreen,
     ProfileScreen,
     SettingsScreen,
+    SignUpSecondStepScreen,
 } from '@src/navigation/MainStacks/ProfileStackScreen';
+import { Platform } from 'react-native';
 
 const HomeStack = createNativeStackNavigator<HomeStackScreenType>();
 
@@ -54,6 +57,7 @@ const ProfileStackScreen = observer(() => {
             <ProfileStack.Screen name="Profile" component={ProfileScreen} />
             <ProfileStack.Screen name="Contacts" component={ContactsScreen} />
             <ProfileStack.Screen name="Login" component={LoginScreen} />
+            <ProfileStack.Screen name="SignUpSecondStep" component={SignUpSecondStepScreen} />
             <ProfileStack.Screen name="Settings" component={SettingsScreen} />
             <ProfileStack.Screen name="Help" component={HelpScreen} />
             <ProfileStack.Screen name="About" component={AboutScreen} />
@@ -67,9 +71,19 @@ export const MainNavigation = observer(
     ({ navigationRef }: { navigationRef: NavigationContainerRefWithCurrent<NavigatorType> }) => {
         const root = new AppState(navigationRef);
 
+        const webClientId =
+            Platform.OS === 'ios'
+                ? '190276600651-vtpvuk79ufeafi70udkpj5idlens02mc.apps.googleusercontent.com'
+                : '1063112761910-js3imhspie0j493p6h33cqqo6qf5p0dk.apps.googleusercontent.com';
+
+        GoogleSignin.configure({
+            webClientId: webClientId,
+        });
+
         React.useEffect(() => {
             function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
                 if (user) {
+                    console.log('USSR ', user);
                     root.accountState.setFirebaseUser(user);
                 }
             }

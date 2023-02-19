@@ -7,6 +7,7 @@ import {
 import { Profile } from '@src/components/ProfileScreenComponents/Profile';
 import { Contacts } from '@src/components/ProfileScreenComponents/Contacts';
 import { Settings } from '@src/components/ProfileScreenComponents/Settings';
+import { SignUpSecondStep } from '@src/components/SignUpScreenComponents/SignUpSecondStep';
 import { Help } from '@src/components/ProfileScreenComponents/Help';
 import { About } from '@src/components/ProfileScreenComponents/About';
 import { Login } from '@src/components/ProfileScreenComponents/Login';
@@ -31,6 +32,13 @@ export const LoginScreen = observer(() => {
     return (
         <StackScreenWrapper>
             <Login />
+        </StackScreenWrapper>
+    );
+});
+export const SignUpSecondStepScreen = observer(() => {
+    return (
+        <StackScreenWrapper>
+            <SignUpSecondStep />
         </StackScreenWrapper>
     );
 });

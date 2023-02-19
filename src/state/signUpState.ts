@@ -1,5 +1,9 @@
 import moment from 'moment';
 import { makeAutoObservable } from 'mobx';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
+import crashlytics from '@react-native-firebase/crashlytics';
+import { RouterState } from './routerState';
 
 export class SignUpState {
     date: Date | null = null;
@@ -23,7 +27,7 @@ export class SignUpState {
     public passwordStatus: boolean | null = null;
     public confirmPasswordStatus: boolean | null = null;
 
-    constructor() {
+    constructor(private readonly routerState: RouterState) {
         makeAutoObservable(this);
     }
 
@@ -80,9 +84,6 @@ export class SignUpState {
         }
         if (value === 'email') {
             this.emailStatus = this.validateEmail(this.email);
-        }
-        if (value === 'postcode') {
-            this.postCodeStatus = this.postCode.length > 4 && this.postCode.length < 9;
         }
 
         if (value === 'password') {
@@ -165,6 +166,25 @@ export class SignUpState {
             this.setLoading(false);
         } catch (err) {
             this.setLoading(false);
+        }
+    };
+
+    loginWithGoogle = async () => {
+        crashlytics().log('state: LoginState, method: loginWithGoogle');
+        try {
+            const data = await GoogleSignin.signIn();
+
+            let credential = auth.GoogleAuthProvider.credential(data.idToken);
+
+            await auth().signInWithCredential(credential);
+
+            this.routerState.navigateToHome();
+            // await this.signInOrLink('google_id', credential, data.user.email, userData);
+            // this.setLoadingGoogle(false);
+        } catch (error) {
+            console.error(error);
+            crashlytics().log(`state: LoginState, method: loginWithGoogle, Error:  ${error}`);
+            // this.setLoadingGoogle(false);
         }
     };
 }

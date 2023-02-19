@@ -10,7 +10,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import { SignUpState } from '@src/state/signUpState';
 
-export const SignUp = observer(() => {
+export const DetailsScreen = observer(() => {
     const { routerState } = useAppState();
 
     const [signUpState] = React.useState(() => new SignUpState());
