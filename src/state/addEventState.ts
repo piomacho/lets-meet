@@ -1,8 +1,11 @@
 import moment from 'moment';
 import { makeAutoObservable } from 'mobx';
+import { MapPressEvent } from 'react-native-maps';
+import { createEvent } from './api/event/createEvent';
+import { EventCreateType } from './api/event/eventsTypes';
 
 export class AddEventState {
-    date: Date | null = null;
+    date: Date | null = new Date();
     error: string | null = null;
     successMessage: string | null = null;
     isLoading: boolean = false;
@@ -18,6 +21,9 @@ export class AddEventState {
     public genderStatus: boolean | null = null;
     public numberOfPeopleStatus: boolean | null = null;
     public categoryStatus: boolean | null = null;
+
+    public currentLatitude: number | null = null;
+    public currentLongitude: number | null = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -85,46 +91,88 @@ export class AddEventState {
     public get isGenderValid(): boolean {
         return this.gender !== '';
     }
+
+    public get isEventNameValid(): boolean {
+        return this.eventName.length > 0;
+    }
+
+    public get isDetailsValid(): boolean {
+        return this.details !== '';
+    }
+
+    public get isNumberOfPeopleValid(): boolean {
+        return this.numberOfPeople > 1;
+    }
+
     public get isDateValid(): boolean {
-        return this.date !== null;
+        const eventDate = moment(this.date);
+        const now = moment(new Date());
+
+        if (now.isBefore(eventDate) === false) {
+            return false
+        }
+
+        return true;
     }
 
     public get isFormValid(): boolean {
         return (
-            this.eventNameStatus === true &&
-            this.detailsStatus === true &&
-            this.numberOfPeopleStatus === true &&
-            this.isGenderValid === true &&
-            this.isDateValid === true
+            this.isEventNameValid &&
+            this.isDetailsValid &&
+            this.isNumberOfPeopleValid &&
+            this.isGenderValid &&
+            // this.isDateValid &&
+            this.isLocationSet
         );
     }
 
-    createEvent = async () => {
-        try {
-            const fields = ['name', 'category', 'details', 'numberOfPeople'];
+    public get isLocationSet(): boolean {
+        return (
+            this.currentLatitude !== null &&
+            this.currentLongitude !== null
+        );
+    }
 
-            fields.forEach(field => {
-                this.validate(field);
-            });
-            if (this.isFormValid === false) {
-                return;
+    private get createEventBody(): EventCreateType | null {
+        if (this.isFormValid && this.isLocationSet) {
+            return {
+                userId: "9315138a-1d9e-11ed-861d-0242ac120002",
+                title: this.eventName,
+                category: this.category,
+                gender: this.gender,
+                participants: this.numberOfPeople,
+                latitude: this.currentLatitude?.toString() ?? null,
+                longitude: this.currentLongitude?.toString() ?? null,
+                place: "Floriańska 43, 31-019 Kraków",
+                ageFrom: 18,
+                ageTo: 99,
+                description: this.details,
+                date: moment(this.date).toString()
             }
+        }
+        return null;
+    }
 
-            const eventDate = moment(this.date);
-            const now = moment(new Date());
+    createEvent = async () => {
 
-            if (now.isBefore(eventDate) === false) {
-                this.setError('Niepoprawna data');
+        console.log('this.createEventBody', this.createEventBody);
+        try {
+            if (this.createEventBody === null) {
                 return;
             }
 
             this.setLoading(true);
 
-            // await Query ...
+            await createEvent(this.createEventBody)
 
             this.setLoading(false);
         } catch (err) {
             this.setLoading(false);
         }
     };
+
+    onMapPress = (e: MapPressEvent) => {
+        this.currentLatitude = e.nativeEvent.coordinate.latitude;
+        this.currentLongitude = e.nativeEvent.coordinate.longitude;
+    }
 }

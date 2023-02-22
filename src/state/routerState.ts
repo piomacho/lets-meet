@@ -14,6 +14,7 @@ export type AddEventStackScreenType = {
     AddEvent: undefined;
     InviteGuests: undefined;
     Review: undefined;
+    ChooseLocation: undefined;
 };
 
 const addEventStackRoutes = ['AddEvent', 'InviteGuests', 'Review'];
@@ -135,6 +136,12 @@ export class RouterState {
     navigateToReview = () => {
         this.navigationRef.navigate('AddEventTab', {
             screen: 'Review',
+        });
+    };
+
+    navigateToChooseLocation = () => {
+        this.navigationRef.navigate('AddEventTab', {
+            screen: 'ChooseLocation',
         });
     };
 

@@ -9,6 +9,7 @@ export const InviteGuests = observer(() => {
     return (
         <View>
             <Text style={{ fontSize: 30, marginBottom: 100 }}>InviteGuestsScreen</Text>
+            <Text style={{ fontSize: 30, marginBottom: 100 }}>TBD - do we want to invite on this step?</Text>
             <Button title="Next" onPress={routerState.navigateToReview} />
         </View>
     );
