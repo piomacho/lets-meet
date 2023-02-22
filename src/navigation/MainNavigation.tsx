@@ -14,7 +14,7 @@ import {
 import { AppState, AppStateContext } from '@src/state/appState';
 import { observer } from 'mobx-react-lite';
 import { HomeScreen, DetailsScreen } from '@src/navigation/MainStacks/HomeStackScreen';
-import { AddEventScreen, InviteGuestsScreen, ReviewScreen } from '@src/navigation/MainStacks/AddEventStackScreen';
+import { AddEventScreen, InviteGuestsScreen, ReviewScreen, ChooseLocationScreen } from '@src/navigation/MainStacks/AddEventStackScreen';
 import {
     AboutScreen,
     ContactsScreen,
@@ -45,6 +45,7 @@ const AddEventStackScreen = observer(() => {
             <AddEventStack.Screen name="AddEvent" component={AddEventScreen} />
             <AddEventStack.Screen name="InviteGuests" component={InviteGuestsScreen} />
             <AddEventStack.Screen name="Review" component={ReviewScreen} />
+            <AddEventStack.Screen name="ChooseLocation" component={ChooseLocationScreen} />
         </AddEventStack.Navigator>
     );
 });

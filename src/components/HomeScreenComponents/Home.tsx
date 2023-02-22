@@ -5,9 +5,10 @@ import { useAppState } from '@src/state/appState';
 import { observer } from 'mobx-react-lite';
 import { Button } from '@rneui/themed';
 import { Onboarding } from '../OnboardingScreenComponents/Onboarding';
+import { EventItem } from './EventItem';
 
 export const Home = observer(() => {
-    const { routerState, accountState } = useAppState();
+    const { routerState, accountState, eventsState } = useAppState();
     React.useEffect(() => {
         async function checkStorage() {
             const value = await AsyncStorage.getItem('@first_launch');
@@ -18,9 +19,11 @@ export const Home = observer(() => {
         checkStorage();
     });
     return accountState.showOnboarding === false ? (
-        <View style={{ alignItems: 'center' }}>
+        <View>
             <Text>HomeScreen</Text>
-
+            {eventsState.eventsList.map(event => {
+                return <EventItem key={event.id} event={event} />
+            })}
             <Button title="Go to Details" onPress={() => routerState.navigateToDetails('1')} />
         </View>
     ) : (

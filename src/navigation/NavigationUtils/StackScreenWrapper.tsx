@@ -30,3 +30,12 @@ export const StackScreenWrapper = observer(({ children }: PropsTypes) => {
         </SafeAreaView>
     );
 });
+
+export const StackStaticScreenWrapper = observer(({ children }: PropsTypes) => {
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+                <GoBackButton />
+                {children}
+        </SafeAreaView>
+    );
+});
