@@ -6,7 +6,8 @@ import { isEventCreate, EventCreateType } from './eventsTypes';
 export const createEvent = async (data: EventCreateType, token?: string): Promise<GenericResponseType> => {
     crashlytics().log(`API CALL: '/api/meetEvents - data: ${JSON.stringify(data)}`);
     if (isEventCreate(data)) {
-        return await makePostRequest('/api/meetEvents', data, undefined, token);
+        const response = await makePostRequest('/api/meetEvents', data, undefined, token);
+        return response;
     }
     crashlytics().log("API CALL: '/api/meetEvents - Decode Error!");
     return {

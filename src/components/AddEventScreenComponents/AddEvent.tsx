@@ -29,14 +29,14 @@ export const AddEvent = observer(() => {
                     );
                 }}
             </Formik>
-            <Button
+            {/* <Button
                 title="Create!"
                 style={{ width: 100, alignSelf: 'center', marginTop: 20 }}
                 onPress={createEvent}
-            />
+            /> */}
             <Button
                 title="Next"
-                style={{ width: 100, alignSelf: 'center', marginTop: 20 }}
+                style={{ marginTop: 20 }}
                 onPress={routerState.navigateToInviteGuests}
             />
         </View>

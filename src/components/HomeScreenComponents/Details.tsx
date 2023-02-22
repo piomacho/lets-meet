@@ -11,10 +11,18 @@ interface PropsTypes {
 
 export const Details = observer(({ eventId }: PropsTypes) => {
     const { eventsState } = useAppState();
+    const eventItemState = eventsState.getEventById(eventId);
 
-    const eventItem = eventsState.getEventById(eventId);
+    const { eventItem, isLoading } = eventItemState;
 
-    console.log('eventItem', eventItem);
+    if (isLoading) {
+        return (
+            <View>
+                <Text>Loading</Text>
+            </View>
+        )
+    }
+
 
     if (eventItem === null) {
         return (
@@ -55,6 +63,12 @@ export const Details = observer(({ eventId }: PropsTypes) => {
                     />
                 </MapView>
             </View>
+            <Text>Title: {eventItem.title}</Text>
+            <Text>Category: {eventItem.category}</Text>
+            <Text>Description: {eventItem.description}</Text>
+            <Text>Age from: {eventItem.ageFrom}</Text>
+            <Text>Age to: {eventItem.ageTo}</Text>
+            <Text>Place: {eventItem.place}</Text>
         </View>
     );
 });

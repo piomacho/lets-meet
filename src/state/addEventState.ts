@@ -3,6 +3,8 @@ import { makeAutoObservable } from 'mobx';
 import { MapPressEvent } from 'react-native-maps';
 import { createEvent } from './api/event/createEvent';
 import { EventCreateType } from './api/event/eventsTypes';
+import { RouterState } from './routerState';
+import { EventsState } from './eventsState';
 
 export class AddEventState {
     date: Date | null = new Date();
@@ -25,7 +27,10 @@ export class AddEventState {
     public currentLatitude: number | null = null;
     public currentLongitude: number | null = null;
 
-    constructor() {
+    constructor(
+        private readonly routerState: RouterState,
+        private readonly eventsState: EventsState,
+    ) {
         makeAutoObservable(this);
     }
 
@@ -163,7 +168,11 @@ export class AddEventState {
 
             this.setLoading(true);
 
-            await createEvent(this.createEventBody)
+            const response = await createEvent(this.createEventBody);
+            if (response.type === 'success') {
+                this.routerState.navigateToDetails(response.data.id);
+                this.eventsState.refreshList();
+            }
 
             this.setLoading(false);
         } catch (err) {
