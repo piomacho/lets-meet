@@ -93,17 +93,18 @@ export const AddEventForm = observer(() => {
                         //@ts-expect-error
                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                     />
+                    <Text style={{ marginVertical: 10 }}>Lokalizacja</Text>
+
+                    {currentLatitude === null ? null : <Text>{currentLatitude}</Text>}
+                    {currentLongitude === null ? null : <Text>{currentLongitude}</Text>}
+                    <Button
+                        title={isLocationSet ? "Zmień miejsce" : "Wybierz miejsce"}
+                        style={{ marginTop: 20 }}
+                        onPress={routerState.navigateToChooseLocation}
+                    />
                 </View>
-                <Text style={{ marginTop: 20 }}>Lokalizacja</Text>
 
-                <Text>{currentLatitude ?? ''}</Text>
-                <Text>{currentLongitude ?? ''}</Text>
 
-                <Button
-                    title={isLocationSet === null ? "Wybierz miejsce" : "Zmień miejsce"}
-                    style={{ alignSelf: 'center', marginTop: 20 }}
-                    onPress={routerState.navigateToChooseLocation}
-                />
             </View>
         </TouchableWithoutFeedback>
     );

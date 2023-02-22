@@ -21,8 +21,8 @@ export class AppState {
         this.meetsState = new MeetsState();
         this.accountState = new AccountState();
         this.signUpState = new SignUpState(this.routerState);
-        this.addEventState = new AddEventState();
         this.eventsState = new EventsState();
+        this.addEventState = new AddEventState(this.routerState, this.eventsState);
         makeAutoObservable(this)
     }
 }
