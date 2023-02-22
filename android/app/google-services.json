@@ -1,49 +1,42 @@
 {
   "project_info": {
-    "project_number": "190276600651",
-    "project_id": "lets-meet-1035d",
-    "storage_bucket": "lets-meet-1035d.appspot.com"
+    "project_number": "444419940225",
+    "project_id": "lets-meet-87753",
+    "storage_bucket": "lets-meet-87753.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:190276600651:android:dbc66d5a3472f910351ece",
+        "mobilesdk_app_id": "1:444419940225:android:76515d00a49d9af6d9d280",
         "android_client_info": {
           "package_name": "com.letsmeet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "190276600651-06r0tnlqou4r53njefimsgc5lmla01pi.apps.googleusercontent.com",
+          "client_id": "444419940225-bhouju7brbf40i7iq0rf2h4ppgsme5tt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.letsmeet",
-            "certificate_hash": "9137ba3b92de18748ca9c620868d135e58bd5f47"
+            "certificate_hash": "c94c21f488fcf189d750be90587d553abe214596"
           }
         },
         {
-          "client_id": "190276600651-9rj5rqg5lktm95r4jeh7a7ec96bfag4q.apps.googleusercontent.com",
+          "client_id": "444419940225-63jqga6nbllit8v2eevgocvpbjpme6a1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBYRhKgKNBvI5md6V2xIAXcxO5kDhZDYOw"
+          "current_key": "AIzaSyAyQJsy5MVDgRG7ergAuukljbnlLsT80Pw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "190276600651-9rj5rqg5lktm95r4jeh7a7ec96bfag4q.apps.googleusercontent.com",
+              "client_id": "444419940225-2vuue1dl68m4d1af8ugast999hdsb0oj.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "190276600651-vtpvuk79ufeafi70udkpj5idlens02mc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.reactjs.native.example.LetsMeet"
-              }
             }
           ]
         }
