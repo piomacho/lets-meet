@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import crashlytics from '@react-native-firebase/crashlytics';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
@@ -6,6 +7,7 @@ export class AccountState {
     firebaseUser: FirebaseAuthTypes.User | null = null;
     public email: string = '';
     public password: string = '';
+    showOnboarding: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -15,6 +17,16 @@ export class AccountState {
         crashlytics().log(`method: setFirebaseUser: ${user?.uid}`);
         this.firebaseUser = user;
         // this.usersResource.refresh();
+    };
+
+    displayOnboarding = (value: boolean) => {
+        this.showOnboarding = value;
+    };
+
+    closeOnboarding = () => {
+        crashlytics().log('method: closeOnboarding');
+        this.displayOnboarding(false);
+        AsyncStorage.setItem('@first_launch', 'true');
     };
 
     logoutUser = async () => {

@@ -73,8 +73,8 @@ export const MainNavigation = observer(
 
         const webClientId =
             Platform.OS === 'ios'
-                ? '190276600651-vtpvuk79ufeafi70udkpj5idlens02mc.apps.googleusercontent.com'
-                : '1063112761910-js3imhspie0j493p6h33cqqo6qf5p0dk.apps.googleusercontent.com';
+                ? '444419940225-sg9g8dcadcj3q67frqm17arvne10uk68.apps.googleusercontent.com'
+                : '444419940225-63jqga6nbllit8v2eevgocvpbjpme6a1.apps.googleusercontent.com';
 
         GoogleSignin.configure({
             webClientId: webClientId,
