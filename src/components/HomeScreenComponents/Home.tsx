@@ -9,6 +9,7 @@ import { EventItem } from './EventItem';
 
 export const Home = observer(() => {
     const { routerState, accountState, eventsState } = useAppState();
+    const user = accountState.firebaseUser;
     React.useEffect(() => {
         async function checkStorage() {
             const value = await AsyncStorage.getItem('@first_launch');
@@ -21,8 +22,11 @@ export const Home = observer(() => {
     return accountState.showOnboarding === false ? (
         <View>
             <Text>HomeScreen</Text>
+            {user === null ? null : (
+                <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 20 }}>Zalogowany jako {user.email}</Text>
+            )}
             {eventsState.eventsList.map(event => {
-                return <EventItem key={event.id} event={event} />
+                return <EventItem key={event.id} event={event} />;
             })}
             <Button title="Go to Details" onPress={() => routerState.navigateToDetails('1')} />
         </View>

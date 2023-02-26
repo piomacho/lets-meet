@@ -16,13 +16,9 @@ export const SignUpSecondStep = observer(() => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
 
-    const {
-        isFormValid,
+    const { isFormValid, emailStatus, setPassword, setConfirmPassword } = signUpState;
 
-        setPassword,
-        setConfirmPassword,
-        registerUser,
-    } = signUpState;
+    console.log('isFormValid ', emailStatus);
 
     return (
         <View>
@@ -33,9 +29,7 @@ export const SignUpSecondStep = observer(() => {
                     numberOfPeople: 2,
                     category: '',
                 }}
-                onSubmit={() => {
-                    registerUser();
-                }}>
+                onSubmit={() => {}}>
                 {({ handleSubmit }) => {
                     const submit = () => {
                         if (isFormValid) {
@@ -83,7 +77,7 @@ export const SignUpSecondStep = observer(() => {
             <Button
                 title="Dalej"
                 style={{ width: 100, alignSelf: 'center', marginTop: 20 }}
-                onPress={routerState.navigateToInviteGuests}
+                onPress={signUpState.onEmailRegisterButtonPress}
             />
         </View>
     );

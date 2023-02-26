@@ -13,14 +13,14 @@ import { SignUpState } from '@src/state/signUpState';
 export const SignUpFirstStep = observer(() => {
     const { routerState, signUpState } = useAppState();
 
-    const { isFormValid, setEmail, registerUser } = signUpState;
+    const { isFormValid, setEmail } = signUpState;
 
     return (
         <View>
             <Formik
                 initialValues={{}}
                 onSubmit={() => {
-                    registerUser();
+                    // registerUser();
                 }}>
                 {({ handleSubmit }) => {
                     const submit = () => {
