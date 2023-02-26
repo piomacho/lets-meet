@@ -27,6 +27,7 @@ export type ProfileStackScreenType = {
     Settings: undefined;
     Help: undefined;
     About: undefined;
+    Details: undefined;
 };
 
 const profileStackRoutes = ['Profile', 'Contacts', 'Settings', 'Help', 'About'];
@@ -160,6 +161,12 @@ export class RouterState {
     navigateToLogin = () => {
         this.navigationRef.navigate('ProfileTab', {
             screen: 'Login',
+        });
+    };
+
+    navigateToUserDetails = () => {
+        this.navigationRef.navigate('ProfileTab', {
+            screen: 'Details',
         });
     };
 

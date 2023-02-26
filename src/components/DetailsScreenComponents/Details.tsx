@@ -7,28 +7,28 @@ import { Text, Button, Input } from '@rneui/themed';
 import { View, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Formik } from 'formik';
 import RNPickerSelect from 'react-native-picker-select';
+import { ImagePickerAvatar } from './ImagePickerAvatar';
+import { ImagePickerModal } from './ImagePickerModal';
 
-import { SignUpState } from '@src/state/signUpState';
-
-export const DetailsScreen = observer(() => {
-    const { routerState } = useAppState();
-
-    const [signUpState] = React.useState(() => new SignUpState());
-    const [showPassword, setShowPassword] = React.useState(false);
-    const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
+export const Details = observer(() => {
+    const { routerState, signUpState } = useAppState();
 
     const {
         isFormValid,
+        pickerResponse,
+        isPickerVisible,
+        setPickerVisible,
+        onImageLibraryPress,
         setFirstName,
         setLastName,
         setAge,
         setGender,
         setEmail,
-        setPassword,
-        setConfirmPassword,
         registerUser,
+        onCameraPress,
     } = signUpState;
 
+    const uri = (pickerResponse?.assets && pickerResponse.assets[0].uri) ?? null;
     return (
         <View>
             <Formik
@@ -50,7 +50,7 @@ export const DetailsScreen = observer(() => {
                     return (
                         <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss} accessible={false}>
                             <View>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Rejestracja</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 10 }}>Uzupełnij dane</Text>
 
                                 <Input label="Imię" onChangeText={setFirstName} />
                                 <Input label="Nazwisko" onChangeText={setLastName} />
@@ -83,35 +83,16 @@ export const DetailsScreen = observer(() => {
                                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                                     />
                                 </View>
-
-                                <Input
-                                    label="Hasło"
-                                    onChangeText={setPassword}
-                                    secureTextEntry={showPassword ? false : true}
-                                    //@ts-expect-error
-                                    rightIcon={() => (
-                                        <Icon
-                                            name="eyeo"
-                                            size={20}
-                                            color={'#000'}
-                                            onPress={() => setShowPassword(!showPassword)}
-                                        />
-                                    )}
-                                />
-                                <Input
-                                    label="Powtórz hasło"
-                                    onChangeText={setConfirmPassword}
-                                    secureTextEntry={showPasswordConfirm ? false : true}
-                                    //@ts-expect-error
-                                    rightIcon={() => (
-                                        <Icon
-                                            name="eyeo"
-                                            size={20}
-                                            color={'#000'}
-                                            onPress={() => setShowPasswordConfirm(!showPasswordConfirm)}
-                                        />
-                                    )}
-                                />
+                                <View style={{ margin: 10 }}>
+                                    <Text>Dodaj zdjęcie</Text>
+                                    <ImagePickerAvatar uri={uri} onPress={() => setPickerVisible(true)} />
+                                    <ImagePickerModal
+                                        isVisible={isPickerVisible}
+                                        onClose={() => setPickerVisible(false)}
+                                        onImageLibraryPress={onImageLibraryPress}
+                                        onCameraPress={onCameraPress}
+                                    />
+                                </View>
                             </View>
                         </TouchableWithoutFeedback>
                     );
