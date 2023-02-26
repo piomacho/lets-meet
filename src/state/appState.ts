@@ -23,7 +23,7 @@ export class AppState {
         this.signUpState = new SignUpState(this.routerState);
         this.eventsState = new EventsState();
         this.addEventState = new AddEventState(this.routerState, this.eventsState);
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 }
 
