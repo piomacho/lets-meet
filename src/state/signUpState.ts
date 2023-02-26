@@ -4,7 +4,13 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import crashlytics from '@react-native-firebase/crashlytics';
 import { RouterState } from './routerState';
+import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
+interface PickerResponseType {
+    assets: Array<{
+        uri: string;
+    }>;
+}
 export class SignUpState {
     date: Date | null = null;
     error: string | null = null;
@@ -27,6 +33,9 @@ export class SignUpState {
     public passwordStatus: boolean | null = null;
     public confirmPasswordStatus: boolean | null = null;
 
+    public pickerResponse: null | ImagePickerResponse = null;
+    public isPickerVisible: boolean = false;
+
     constructor(private readonly routerState: RouterState) {
         makeAutoObservable(this);
     }
@@ -34,8 +43,15 @@ export class SignUpState {
     public setDate = (currentDate: Date | null) => {
         this.date = currentDate;
     };
+    public setPickerVisible = (isVisible: boolean) => {
+        this.isPickerVisible = isVisible;
+    };
     public setError = (error: string | null) => {
         this.error = error;
+    };
+
+    public setPickerResponse = (response: ImagePickerResponse) => {
+        this.pickerResponse = response ?? null;
     };
 
     public setSuccessMessage = (successMessage: string) => {
@@ -132,6 +148,21 @@ export class SignUpState {
             //@ts-expect-error
             this.setError(firebaseErrors[error.code]);
         }
+    };
+
+    onCameraPress = async () => {
+        const response = await launchCamera({
+            saveToPhotos: true,
+            mediaType: 'photo',
+            includeBase64: false,
+        });
+        console.log('response ', response);
+        this.setPickerVisible(false);
+    };
+
+    onImageLibraryPress = async () => {
+        launchImageLibrary({ selectionLimit: 1, mediaType: 'photo', includeBase64: false }, this.setPickerResponse);
+        this.setPickerVisible(false);
     };
 
     registerUser = async () => {

@@ -13,11 +13,17 @@ import {
 } from '@src/state/routerState';
 import { AppState, AppStateContext } from '@src/state/appState';
 import { observer } from 'mobx-react-lite';
-import { HomeScreen, DetailsScreen } from '@src/navigation/MainStacks/HomeStackScreen';
-import { AddEventScreen, InviteGuestsScreen, ReviewScreen, ChooseLocationScreen } from '@src/navigation/MainStacks/AddEventStackScreen';
+import { HomeScreen } from '@src/navigation/MainStacks/HomeStackScreen';
+import {
+    AddEventScreen,
+    InviteGuestsScreen,
+    ReviewScreen,
+    ChooseLocationScreen,
+} from '@src/navigation/MainStacks/AddEventStackScreen';
 import {
     AboutScreen,
     ContactsScreen,
+    DetailsScreen,
     HelpScreen,
     LoginScreen,
     ProfileScreen,
@@ -58,6 +64,7 @@ const ProfileStackScreen = observer(() => {
             <ProfileStack.Screen name="Profile" component={ProfileScreen} />
             <ProfileStack.Screen name="Contacts" component={ContactsScreen} />
             <ProfileStack.Screen name="Login" component={LoginScreen} />
+            <ProfileStack.Screen name="Details" component={DetailsScreen} />
             <ProfileStack.Screen name="SignUpSecondStep" component={SignUpSecondStepScreen} />
             <ProfileStack.Screen name="Settings" component={SettingsScreen} />
             <ProfileStack.Screen name="Help" component={HelpScreen} />
