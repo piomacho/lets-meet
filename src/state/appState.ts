@@ -7,6 +7,7 @@ import { AddEventState } from './addEventState';
 import { MeetsState } from './meetsState';
 import { SignUpState } from './signUpState';
 import { EventsState } from './eventsState';
+import { FiltersState } from './filtersState';
 
 export class AppState {
     public readonly routerState: RouterState;

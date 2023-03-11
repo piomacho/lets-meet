@@ -1,46 +1,36 @@
 import * as React from 'react';
-import { useAppState } from '@src/state/appState';
+import { Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, Button, Input } from '@rneui/themed';
-import { View, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { useAppState } from '@src/state/appState';
 
-export const AddEventForm = observer(() => {
-    const { routerState, addEventState } = useAppState();
-    const {
-        details,
-        currentLatitude,
-        currentLongitude,
-        isLocationSet,
-        setEventName,
-        setCategory,
-        setNumberOfPeople,
-        setDetails,
-        setGender,
-    } = addEventState;
-
+export const Filters = observer(() => {
+    const { eventsState } = useAppState();
+    const { setCategory, setGender, filtersOpened, setFiltersOpened } = eventsState;
     return (
-        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss} accessible={false}>
-            <View>
-                <Input label="Nazwa wydarzenia" onChangeText={setEventName} />
+        <View style={styles.filterWrapper}>
+            <Pressable style={styles.searchRow} onPress={setFiltersOpened}>
+                <Icon name="search1" size={20} color={'#000'} />
 
-                <Input
-                    editable
-                    multiline
-                    label="Opis"
-                    numberOfLines={5}
-                    onChangeText={text => setDetails(text)}
-                    value={details}
-                    style={{ padding: 10 }}
+                <Icon
+                    style={[
+                        {
+                            transform: [{ rotateY: filtersOpened ? '180deg' : '0deg' }],
+                        },
+                    ]}
+                    name={filtersOpened ? 'downcircleo' : 'upcircleo'}
+                    size={20}
+                    color={'#000'}
                 />
-                <Input label="Liczba uczestników" keyboardType="numeric" onChangeText={setNumberOfPeople} />
-                <View style={{ margin: 10 }}>
-                    <Text>Wybierz kategorię</Text>
+            </Pressable>
+            {filtersOpened ? (
+                <View>
+                    <Text style={{ marginTop: 20 }}>Kategoria wydarzenia</Text>
                     <RNPickerSelect
                         useNativeAndroidPickerStyle={false}
                         placeholder={{
-                            label: 'Wybierz kategorię',
+                            label: 'Kategoria',
                             value: null,
                         }}
                         onValueChange={(value: string) => setCategory(value)}
@@ -65,7 +55,7 @@ export const AddEventForm = observer(() => {
                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                     />
 
-                    <Text style={{ marginTop: 20 }}>Wybierz płeć uczestników</Text>
+                    <Text style={{ marginTop: 20 }}>Płeć uczestników</Text>
                     <RNPickerSelect
                         useNativeAndroidPickerStyle={false}
                         onValueChange={(value: string) => setGender(value)}
@@ -74,34 +64,33 @@ export const AddEventForm = observer(() => {
                             value: null,
                         }}
                         items={[
-                            { label: 'Wszyscy są mile widziani !', value: 'all' },
+                            { label: 'Wszyscy', value: 'all' },
                             { label: 'Kobiety', value: 'female' },
                             {
                                 label: 'Mężczyzni',
                                 value: 'male',
-                            },
-                            {
-                                label: 'Zdefiniowana w opisie',
-                                value: 'unknown',
                             },
                         ]}
                         style={{ ...pickerSelectStyles }}
                         //@ts-expect-error
                         Icon={() => <Icon name="down" size={20} color={'#000'} />}
                     />
-                    <Text style={{ marginVertical: 10 }}>Lokalizacja</Text>
-
-                    {currentLatitude === null ? null : <Text>{currentLatitude}</Text>}
-                    {currentLongitude === null ? null : <Text>{currentLongitude}</Text>}
-                    <Button
-                        title={isLocationSet ? 'Zmień miejsce' : 'Wybierz miejsce'}
-                        style={{ marginTop: 20 }}
-                        onPress={routerState.navigateToChooseLocation}
-                    />
                 </View>
-            </View>
-        </TouchableWithoutFeedback>
+            ) : null}
+        </View>
     );
+});
+
+const styles = StyleSheet.create({
+    filterWrapper: {
+        backgroundColor: '#fff',
+        padding: 15,
+        marginBottom: 20,
+    },
+    searchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
 });
 
 export const pickerSelectStyles = StyleSheet.create({

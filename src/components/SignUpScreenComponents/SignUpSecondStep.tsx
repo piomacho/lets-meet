@@ -6,9 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { Text, Button, Input } from '@rneui/themed';
 import { View, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Formik } from 'formik';
-import RNPickerSelect from 'react-native-picker-select';
-
-import { SignUpState } from '@src/state/signUpState';
 
 export const SignUpSecondStep = observer(() => {
     const { routerState, signUpState } = useAppState();

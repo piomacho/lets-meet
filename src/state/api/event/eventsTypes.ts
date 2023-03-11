@@ -15,9 +15,16 @@ export const EventCreateIO = t.interface({
     description: t.union([t.string, t.null]),
     date: t.union([t.string, t.null]),
 });
+export const EventFetchIO = t.interface({
+    gender: t.union([t.string, t.null]),
+    category: t.union([t.string, t.null]),
+});
 
 export const isEventCreate = createGuard(EventCreateIO);
 export type EventCreateType = t.TypeOf<typeof EventCreateIO>;
+
+export const isEventsFetch = createGuard(EventFetchIO);
+export type EventFetchType = t.TypeOf<typeof EventFetchIO>;
 
 export const EventIO = t.interface({
     id: t.string,
