@@ -27,10 +27,7 @@ export class AddEventState {
     public currentLatitude: number | null = null;
     public currentLongitude: number | null = null;
 
-    constructor(
-        private readonly routerState: RouterState,
-        private readonly eventsState: EventsState,
-    ) {
+    constructor(private readonly routerState: RouterState, private readonly eventsState: EventsState) {
         makeAutoObservable(this);
     }
 
@@ -114,7 +111,7 @@ export class AddEventState {
         const now = moment(new Date());
 
         if (now.isBefore(eventDate) === false) {
-            return false
+            return false;
         }
 
         return true;
@@ -132,34 +129,30 @@ export class AddEventState {
     }
 
     public get isLocationSet(): boolean {
-        return (
-            this.currentLatitude !== null &&
-            this.currentLongitude !== null
-        );
+        return this.currentLatitude !== null && this.currentLongitude !== null;
     }
 
     private get createEventBody(): EventCreateType | null {
         if (this.isFormValid && this.isLocationSet) {
             return {
-                userId: "9315138a-1d9e-11ed-861d-0242ac120002",
+                userId: '9315138a-1d9e-11ed-861d-0242ac120002',
                 title: this.eventName,
                 category: this.category,
                 gender: this.gender,
                 participants: this.numberOfPeople,
                 latitude: this.currentLatitude?.toString() ?? null,
                 longitude: this.currentLongitude?.toString() ?? null,
-                place: "Floriańska 43, 31-019 Kraków",
+                place: 'Floriańska 43, 31-019 Kraków',
                 ageFrom: 18,
                 ageTo: 99,
                 description: this.details,
-                date: moment(this.date).toString()
-            }
+                date: moment(this.date).toString(),
+            };
         }
         return null;
     }
 
     createEvent = async () => {
-
         console.log('this.createEventBody', this.createEventBody);
         try {
             if (this.createEventBody === null) {
@@ -183,5 +176,5 @@ export class AddEventState {
     onMapPress = (e: MapPressEvent) => {
         this.currentLatitude = e.nativeEvent.coordinate.latitude;
         this.currentLongitude = e.nativeEvent.coordinate.longitude;
-    }
+    };
 }

@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { Button } from '@rneui/themed';
 import { Onboarding } from '../OnboardingScreenComponents/Onboarding';
 import { EventItem } from './EventItem';
+import { Filters } from './Filters';
 
 export const Home = observer(() => {
     const { routerState, accountState, eventsState } = useAppState();
@@ -21,14 +22,18 @@ export const Home = observer(() => {
     });
     return accountState.showOnboarding === false ? (
         <View>
-            <Text>HomeScreen</Text>
             {user === null ? null : (
                 <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 20 }}>Zalogowany jako {user.email}</Text>
             )}
+            <Filters />
             {eventsState.eventsList.map(event => {
                 return <EventItem key={event.id} event={event} />;
             })}
-            <Button title="Go to Details" onPress={() => routerState.navigateToDetails('1')} />
+            <Button
+                style={{ marginTop: 20 }}
+                title="Go to Details"
+                onPress={() => routerState.navigateToDetails('1')}
+            />
         </View>
     ) : (
         <Onboarding />

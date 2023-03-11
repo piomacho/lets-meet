@@ -20,28 +20,26 @@ export const Details = observer(({ eventId }: PropsTypes) => {
             <View>
                 <Text>Loading</Text>
             </View>
-        )
+        );
     }
-
 
     if (eventItem === null) {
         return (
             <View>
                 <Text>Event not found</Text>
             </View>
-        )
+        );
     }
-
 
     const latitude = parseFloat(eventItem.latitude ?? '');
     const longitude = parseFloat(eventItem.longitude ?? '');
 
-    if(isNaN(latitude) || isNaN(longitude)) {
+    if (isNaN(latitude) || isNaN(longitude)) {
         return (
             <View>
                 <Text>Event not found</Text>
             </View>
-        )
+        );
     }
 
     return (
